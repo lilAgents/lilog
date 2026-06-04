@@ -27,7 +27,7 @@ function initTheme() {
   btn.addEventListener('click', () => {
     const next = current() === 'dark' ? 'light' : 'dark';
     document.documentElement.dataset.theme = next;
-    try { localStorage.setItem('lilog-theme', next); } catch (e) {}
+    try { localStorage.setItem('lilog-theme', next); } catch (e) { /* storage may be unavailable; safe to ignore */ }
     setThemeIcon(btn, next);
   });
 }
@@ -93,7 +93,7 @@ function loadImage(url) {
 }
 
 function setUpload(file) {
-  if (upload.url) { try { URL.revokeObjectURL(upload.url); } catch (e) {} }
+  if (upload.url) { try { URL.revokeObjectURL(upload.url); } catch (e) { /* storage may be unavailable; safe to ignore */ } }
   upload.active = true;
   upload.url = URL.createObjectURL(file);
   upload.name = file.name;
@@ -109,7 +109,7 @@ function setUpload(file) {
 }
 
 function clearUpload() {
-  if (upload.url) { try { URL.revokeObjectURL(upload.url); } catch (e) {} }
+  if (upload.url) { try { URL.revokeObjectURL(upload.url); } catch (e) { /* storage may be unavailable; safe to ignore */ } }
   upload.active = false; upload.url = ''; upload.name = ''; upload.w = 0; upload.h = 0;
   $('#upload-chip').classList.add('is-hidden');
   $('#f-upload').value = '';
@@ -332,7 +332,7 @@ function fallbackCopy(text, done) {
   const ta = document.createElement('textarea');
   ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
   document.body.appendChild(ta); ta.select();
-  try { document.execCommand('copy'); } catch (e) {}
+  try { document.execCommand('copy'); } catch (e) { /* storage may be unavailable; safe to ignore */ }
   document.body.removeChild(ta); done();
 }
 

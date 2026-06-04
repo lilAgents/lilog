@@ -5,6 +5,12 @@
 [build.environment]
   NODE_VERSION = "22"
 
+# Serverless function that fetches a live page's meta tags server-side
+# (browsers can't read cross-origin HTML, so this does the fetching).
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Cache-control for the static assets Astro fingerprints.
 [[headers]]
   for = "/_astro/*"

@@ -3,7 +3,7 @@ import '../styles/app.css';
 
 const title = 'lilOG - Open Graph Preview & Inspector';
 const description =
-  'Preview your Open Graph cards on Facebook, X, LinkedIn, WhatsApp, and Discord, inspect your meta tags, and copy a clean head block. Free tool by lilAgents.';
+  'Scan any live URL and preview its Open Graph cards on Facebook, X, LinkedIn, WhatsApp, and Discord. Tweak the tags, inspect them, and copy a clean head block. Free tool by lilAgents.';
 ---
 
 <!doctype html>
@@ -67,6 +67,17 @@ const description =
       <button id="ui-theme-btn" class="ui-theme-btn" type="button" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg></button>
     </header>
 
+    <div class="scanbar">
+      <form class="scan" id="scan-form">
+        <span class="scan-ic" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M10 14a3.5 3.5 0 0 0 5 0l4-4a3.5 3.5 0 0 0-5-5l-.5.5"/><path d="M14 10a3.5 3.5 0 0 0-5 0l-4 4a3.5 3.5 0 0 0 5 5l.5-.5"/></svg>
+        </span>
+        <input id="scan-url" type="text" autocomplete="off" spellcheck="false" placeholder="Scan a live page: yoursite.com/page" />
+        <button class="btn" id="scan-btn" type="submit">Scan</button>
+      </form>
+      <p class="scan-note" id="scan-note">Paste any URL to pull its real meta tags, then tweak them below.</p>
+    </div>
+
     <main class="app">
       <!-- ---------- Inputs ---------- -->
       <section class="pane form-pane">
@@ -79,10 +90,15 @@ const description =
             <span class="field__label">Description <span class="count" id="desc-count"></span></span>
             <textarea id="f-desc" rows="4" placeholder="We craft brands and build fast, modern websites that help teams launch and grow."></textarea>
           </label>
-          <label class="field">
-            <span class="field__label">Image URL <span class="count" id="img-count"></span></span>
-            <input id="f-image" type="text" autocomplete="off" spellcheck="false" placeholder="https://yoursite.com/og.png  (1200x630)" />
-          </label>
+          <div class="field">
+            <span class="field__label">Image <span class="count" id="img-count"></span></span>
+            <div class="img-row">
+              <input id="f-image" type="text" autocomplete="off" spellcheck="false" placeholder="https://yoursite.com/og.png  (1200x630)" aria-label="Image URL" />
+              <button class="chip chip--alt" id="upload-btn" type="button">Upload</button>
+              <input id="f-upload" type="file" accept="image/*" hidden />
+            </div>
+            <p class="upload-chip is-hidden" id="upload-chip"><span id="upload-name"></span> <button class="upload-clear" id="upload-clear" type="button" aria-label="Remove uploaded image">&times;</button></p>
+          </div>
           <label class="field">
             <span class="field__label">Page URL</span>
             <input id="f-url" type="text" autocomplete="off" spellcheck="false" placeholder="https://yoursite.com/page" />
